@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Relatorio_IPSEMG_Materiais" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f61505e6-71e2-4a7d-aabd-5ac0ed3975ae">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Data_Saida_Inicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Data_Saida_Fim" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Numero_Patrimonio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Imagem" class="java.lang.String"/>
+	<parameter name="Em_Aberto" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT convert(varchar(10),m.DatSai,103) DatSai,
+ltrim(rtrim(replace(str(m.HorSai/60,2),' ','0')))+':'+ltrim(rtrim(replace(str(m.HorSai - m.HorSai/60 * 60,2),' ','0'))) HorSai,m.NumePatr,c.DescMate,m.idcolabsai,p.NomePess,convert(varchar(10),m.datent,103) datent,ltrim(rtrim(replace(str(m.horent/60,2),' ','0')))+':'+ltrim(rtrim(replace(str(m.horent - m.horent/60 * 60,2),' ','0'))) horent,m.status,convert(varchar(10),m.datprvdev,103) datprvdev,m.motivo
+                FROM TbMovMatIPSEMG m INNER JOIN
+                TBCadasMaterIPSEMG c ON m.NumePatr = c.NumePatr inner join
+                  TbColab col on col.IdColab = m.idcolabsai inner join
+                  TbPessoa p on p.IdPessoa = col.IdPessoa
+Where
+
+m.DatSai > $P{Data_Saida_Inicio} AND m.DatSai < $P{Data_Saida_Fim}
+$P!{Numero_Patrimonio}
+$P!{Em_Aberto}
+
+Order by
+
+m.DatSai, m.HorSai]]>
+	</queryString>
+	<field name="DatSai" class="java.lang.String"/>
+	<field name="HorSai" class="java.lang.String"/>
+	<field name="NumePatr" class="java.math.BigDecimal"/>
+	<field name="DescMate" class="java.lang.String"/>
+	<field name="idcolabsai" class="java.math.BigDecimal"/>
+	<field name="NomePess" class="java.lang.String"/>
+	<field name="datent" class="java.lang.String"/>
+	<field name="horent" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="datprvdev" class="java.lang.String"/>
+	<field name="motivo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="135" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="802" height="131" uuid="007507ec-7c76-4fdf-bd82-000ee1fe56e9"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="59" y="34" width="476" height="26" uuid="49328a57-6709-46a8-89c2-ae9508af9cd6"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Movimentação de Materiais - IPSEMG]]></text>
+			</staticText>
+			<image>
+				<reportElement x="569" y="19" width="203" height="67" uuid="9eec10a6-e43a-4f9d-9f5c-7a62178d273a"/>
+				<imageExpression><![CDATA[$P{Imagem}+"logo_ipsemg.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="6" y="99" width="78" height="20" uuid="27c71fa8-5bc0-42fb-a4dd-81ef4bbdd34c"/>
+				<text><![CDATA[Data de Saída]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="99" width="76" height="20" uuid="f351b429-65d0-4c05-8543-86766a19233e"/>
+				<text><![CDATA[Hora de Saída]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="99" width="74" height="20" uuid="6c4a7282-e84f-4a41-b1be-a0f1b115bae5"/>
+				<text><![CDATA[Patrimônio nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="99" width="140" height="20" uuid="7ad43e99-4ffa-46db-a246-33d0a8665fc2"/>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="99" width="195" height="20" uuid="a11822d0-de0e-43a0-8145-19b44f49c6d9"/>
+				<text><![CDATA[Responsável]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="569" y="99" width="68" height="32" uuid="4aff9b49-394e-4141-aac2-9a64528a068b"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Previsão de Retorno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="637" y="99" width="81" height="20" uuid="7c3966ec-b251-44d2-a74e-a5ad6a1a2862"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Data de Retorno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="718" y="99" width="82" height="20" uuid="84e2b460-4c54-4d32-aa49-799ad4b5cda4"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hora de Retorno]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="87" y="5" width="73" height="20" uuid="d5423242-9624-445b-9994-701948fb8016"/>
+				<textFieldExpression><![CDATA[$F{HorSai}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="5" width="74" height="20" uuid="86167b4e-fea0-4e56-b6de-89f601e1b2d3"/>
+				<textFieldExpression><![CDATA[$F{NumePatr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="234" y="5" width="140" height="20" uuid="60130457-723e-45c9-995e-1b7868a0379b"/>
+				<textFieldExpression><![CDATA[$F{DescMate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="374" y="5" width="195" height="20" uuid="c1905e8b-1bb2-4ade-8677-8b9d5fc43569"/>
+				<textFieldExpression><![CDATA[$F{NomePess}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" x="722" y="5" width="70" height="20" uuid="fa2d477b-270a-4c0d-8f59-f8645b9c1d5e"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horent}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="569" y="5" width="68" height="20" uuid="03d214d3-acf3-4bfe-b75e-bc3517ec3dd9"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datprvdev}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" x="641" y="5" width="81" height="20" uuid="7626365b-6347-40e9-997f-5db3e9558173"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datent}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="9" y="5" width="75" height="20" uuid="c889b11d-cd1b-4f72-a53d-9422c487b9fe"/>
+				<textFieldExpression><![CDATA[$F{DatSai}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="767" y="0" width="33" height="20" uuid="3986496b-7045-48d3-b5e4-625d85925737"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="667" y="0" width="100" height="20" uuid="7f3a590a-63a7-44c0-b2fd-fc850f179013"/>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

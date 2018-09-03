@@ -1,0 +1,76 @@
+@charset "utf-8";
+/* CSS Document */
+
+body,td,th {
+	font-size: 12px;
+}
+.inputcampos{
+	position:absolute;
+	left:190px;
+	width:180px;
+
+}
+.inputbotaosalvar{
+	position:absolute;
+	width:70px;
+}
+.inputbotaolimpar{
+	position:absolute;
+	left:100px;
+	width:70px;
+}
+.textarea{
+	position:absolute;
+	left:190px;
+	widht:200px;
+	heigth:50px;
+}
+.radiosim{
+	position:absolute;
+	left:189px;
+	top: 108px;
+}.radionao{
+	position:absolute;
+	left:233px;
+	top: 108px;
+}
+.labelsim{
+	position:absolute;
+	left:208px;
+}
+.labelnao{
+	position:absolute;
+	left:252px;
+	top: 112px;
+}
+.em{
+	position:absolute;
+	left:390px;
+}
+.em2{
+	position:absolute;
+	left:200px;
+}
+.campodia{
+	position:absolute;
+	left: 190px;
+	width:15px;
+}.campoqtde{
+	position:absolute;
+	left: 190px;
+	width:25px;
+}
+.campomes{
+	position:absolute;
+	left: 220px;
+	width:15px;
+}
+.campoano{
+	position:absolute;
+	left: 250px;
+	width:30px;
+}
+.linkdata{
+	position:absolute;
+	left: 300px;
+	}

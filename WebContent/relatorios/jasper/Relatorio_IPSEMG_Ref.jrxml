@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Relatorio IPSEMG Acesso" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="781aa4fb-f7f3-4ca3-8412-843bffdcf23e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="TipCol" class="java.util.Collection" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Matricula" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DatIni" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="HorIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DatFim" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="HorFim" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Imagem" class="java.lang.String"/>
+	<parameter name="Equipamentos" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TipAce" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from V_usu_AcessRef
+where (Data >=$P{DatIni} and Data <= $P{DatFim})
+AND (HORA >= $P{HorIni} and Hora <= $P{HorFim})
+$P!{TipAce}
+$P!{Matricula}
+ORDER BY DATA,HORA]]>
+	</queryString>
+	<field name="Tipo_Pessoa" class="java.lang.Integer"/>
+	<field name="Matricula" class="java.math.BigDecimal"/>
+	<field name="Nome" class="java.lang.String"/>
+	<field name="Tipo_Servidor" class="java.lang.String"/>
+	<field name="Cargo" class="java.lang.String"/>
+	<field name="Data" class="java.sql.Timestamp"/>
+	<field name="Hora" class="java.lang.String"/>
+	<field name="Refeicao" class="java.lang.String"/>
+	<field name="Tipo_Acesso" class="java.lang.Integer"/>
+	<field name="Desc_Tipo_Acesso" class="java.lang.String"/>
+	<field name="Codigo_Coletor" class="java.math.BigDecimal"/>
+	<field name="Desc_Coletor" class="java.lang.String"/>
+	<variable name="Data" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="126">
+			<rectangle>
+				<reportElement x="0" y="1" width="802" height="119" uuid="0bc71ed9-a808-4063-9b71-3a01a2a5a648"/>
+			</rectangle>
+			<image>
+				<reportElement x="585" y="15" width="203" height="67" uuid="642bfc75-a1c8-4f90-8a71-e0bb7105271a"/>
+				<imageExpression><![CDATA[$P{Imagem}+"logo_ipsemg.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="75" y="30" width="476" height="26" uuid="0e3021d1-f8ed-415b-936f-a2b33ba8268c"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consulta de Acesso ao Refeitório]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="169" y="100" width="66" height="20" uuid="9784bfa4-a225-4bd1-ab27-137747821789"/>
+				<text><![CDATA[Matricula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="75" height="20" uuid="e8c73c88-3dcf-4a48-bcbc-9e32c5659332"/>
+				<text><![CDATA[Tipo Servidor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="100" width="100" height="20" uuid="cb76253e-bf1f-4df0-b476-2bdfeddc85f0"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="100" width="60" height="20" uuid="366b8fe0-88bd-4a90-99ef-909d167c2367"/>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="474" y="100" width="31" height="20" uuid="75f1725c-18e0-45d2-b0e0-0e2a50d172b8"/>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="505" y="100" width="77" height="20" uuid="041e5344-280e-4b5e-9b14-51df616c11ea"/>
+				<text><![CDATA[Refeicao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="583" y="100" width="148" height="20" uuid="e16bc5f8-10ae-4442-bebf-31689044c0bd"/>
+				<text><![CDATA[Tipo de Acesso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="731" y="100" width="71" height="20" uuid="d6235ca9-e20f-4e5e-8381-47f52370b7dd"/>
+				<text><![CDATA[Coletor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="75" y="100" width="75" height="20" uuid="cee8d069-93b5-49e6-a681-bc3eabeca13a"/>
+				<text><![CDATA[Cargo]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="169" y="0" width="66" height="20" uuid="9388bc4f-a72d-4125-9deb-9aa4dd218744"/>
+				<textFieldExpression><![CDATA[$F{Matricula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="75" height="20" uuid="43173d77-bfcf-4822-9115-df2fdbf82d8b"/>
+				<textFieldExpression><![CDATA[$F{Tipo_Servidor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="1" width="174" height="20" uuid="ada2de58-e608-49a1-926e-1c5159edc235"/>
+				<textFieldExpression><![CDATA[$F{Nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="414" y="1" width="60" height="20" uuid="9859c4d8-d1a0-46be-b55d-c3a556883afe"/>
+				<textFieldExpression><![CDATA[$F{Data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="505" y="0" width="78" height="20" uuid="9d82e348-770e-488d-a003-f31d78989291"/>
+				<textFieldExpression><![CDATA[$F{Refeicao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="585" y="1" width="144" height="20" uuid="9b1232c4-9127-42af-b1e4-1b3bbae00aad"/>
+				<textFieldExpression><![CDATA[$F{Desc_Tipo_Acesso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="731" y="1" width="71" height="20" uuid="cf46e348-84e3-4169-9039-b3b51b58fd5b"/>
+				<textFieldExpression><![CDATA[$F{Desc_Coletor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="1" width="94" height="20" uuid="fb618ae5-d2a9-44b3-9e8e-0df89816b614"/>
+				<textFieldExpression><![CDATA[$F{Cargo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="474" y="0" width="31" height="20" uuid="cede2270-3a3f-462a-b5de-04e719f9253d"/>
+				<textFieldExpression><![CDATA[$F{Hora}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="21">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="5240c8ae-201e-4ce1-bddc-7deadbaf7878"/>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="706" y="0" width="33" height="20" uuid="d863506f-26c0-411a-bb60-06c50a6830d1"/>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="739" y="0" width="49" height="20" uuid="339f20d9-67d7-48b7-bd29-e0e06e443372"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

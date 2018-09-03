@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Relatorio IPSEMG Acesso" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="781aa4fb-f7f3-4ca3-8412-843bffdcf23e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="TipCol" class="java.util.Collection">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Matricula" class="java.util.Collection">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DatIni" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="HorIni" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DatFim" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="HorFim" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Imagem" class="java.lang.String"/>
+	<parameter name="Equipamentos" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select f.tipocola Tipo_Pessoa,
+f.codimatr Matricula,
+p.nomepess Nome,
+a.dataaces Data,
+ltrim(rtrim(replace(str(a.horaaces/60,2),' ','0')))+':'+ltrim(rtrim(replace(str((a.horaaces - (a.horaaces/60 * 60)),2),' ','0'))) Hora,
+a.DireAces Direcao_Acesso,
+a.tipoaces Tipo_Acesso,
+t.desctipoaces Desc_Tipo_Acesso,
+a.codiplan Planta,
+a.codicole Codigo_Coletor,
+r.desccole Desc_Coletor
+from tbmarcaAcess a inner join
+tbhistocrach c on a.icard = c.icard inner join
+tbcolab f on c.idcolab = f.idcolab inner join
+tbpessoa p on f.idpessoa = p.idpessoa  inner join
+tbcodin r on r.codiplan = a.codiplan and r.codicole = a.codicole inner join
+tbtipoacess t on t.tipoaces = a.tipoaces
+where (dateadd(minute,c.horainic,c.datainic) <= dateadd(minute,a.horaaces,a.dataaces)) and
+(c.datafina is null or c.datafina = convert(datetime,'1900-12-31') or
+dateadd(minute,c.horafina,c.datafina) >= dateadd(minute,a.horaaces,a.dataaces))
+
+AND dateadd(minute,a.horaaces,a.dataaces) >= dateadd(minute,$P{HorIni},$P{DatIni})
+AND dateadd(minute,a.horaaces,a.dataaces) <= dateadd(minute,$P{HorFim},$P{DatFim})
+AND $X{IN,f.tipocola,TipCol}
+$P!{Equipamentos}
+
+order by
+Data, Hora]]>
+	</queryString>
+	<field name="Tipo_Pessoa" class="java.lang.Integer"/>
+	<field name="Matricula" class="java.math.BigDecimal"/>
+	<field name="Nome" class="java.lang.String"/>
+	<field name="Data" class="java.sql.Timestamp"/>
+	<field name="Hora" class="java.lang.String"/>
+	<field name="Direcao_Acesso" class="java.lang.String"/>
+	<field name="Tipo_Acesso" class="java.lang.Integer"/>
+	<field name="Desc_Tipo_Acesso" class="java.lang.String"/>
+	<field name="Planta" class="java.math.BigDecimal"/>
+	<field name="Codigo_Coletor" class="java.math.BigDecimal"/>
+	<field name="Desc_Coletor" class="java.lang.String"/>
+	<variable name="Data" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="125">
+			<rectangle>
+				<reportElement x="0" y="1" width="802" height="119" uuid="0bc71ed9-a808-4063-9b71-3a01a2a5a648"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="97" width="54" height="20" uuid="4e6d3d79-be0c-4a47-a980-8a2b8da21686"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Matricula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="69" y="97" width="100" height="20" uuid="cc324e34-7f29-4aa4-ab46-18966bc03e6b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="325" y="97" width="61" height="20" uuid="39fd7736-a963-494d-905c-ea3b37ffece0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="386" y="97" width="50" height="20" uuid="9df9fd92-e964-4170-8ac1-d910f56210be"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="451" y="97" width="100" height="20" uuid="73e49a4e-05b4-454a-a946-25049e9b3764"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Acesso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="585" y="97" width="100" height="20" uuid="86933702-8ac1-4982-a281-7def821bf9cb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="724" y="97" width="64" height="20" uuid="35ea0c5e-61e2-402f-9335-5b028aa1f962"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Direção]]></text>
+			</staticText>
+			<image>
+				<reportElement x="585" y="15" width="203" height="67" uuid="642bfc75-a1c8-4f90-8a71-e0bb7105271a"/>
+				<imageExpression><![CDATA[$P{Imagem}+"logo_ipsemg.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="75" y="30" width="476" height="26" uuid="0e3021d1-f8ed-415b-936f-a2b33ba8268c"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consulta de Acesso através de catracas do HGIP]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="5" y="0" width="60" height="20" uuid="38ebc33f-478b-47a1-8dc7-40d78665037e"/>
+				<textFieldExpression><![CDATA[$F{Matricula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="0" width="256" height="20" uuid="b2503bc9-be12-4289-bbc1-f9db12ebf030"/>
+				<textFieldExpression><![CDATA[$F{Nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="325" y="0" width="61" height="20" uuid="fba88248-0501-46a9-bda5-5e28fca28c08"/>
+				<textFieldExpression><![CDATA[$F{Data}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="386" y="0" width="50" height="20" uuid="aff8380e-24b4-44a4-b810-623fcc3b6158"/>
+				<textFieldExpression><![CDATA[$F{Hora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="1" width="119" height="20" uuid="4767a5cc-0205-4fc9-83cf-21cb832fe39a"/>
+				<textFieldExpression><![CDATA[$F{Desc_Tipo_Acesso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="454" y="0" width="13" height="20" uuid="62de1e69-d656-429e-a6b4-d4d04eab6c8a"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="585" y="0" width="139" height="20" uuid="3937850a-e7d6-46c2-af6a-683b672d7c71"/>
+				<textFieldExpression><![CDATA[$F{Desc_Coletor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="724" y="0" width="64" height="20" uuid="2f33db66-8115-46bf-84ca-9f40b6b04451"/>
+				<textFieldExpression><![CDATA[$F{Direcao_Acesso}.equals("E") ? "ENTRADA" : "SAÍDA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="436" y="1" width="18" height="20" uuid="54fea616-766e-4e24-beb0-f069152ea8c1"/>
+				<textFieldExpression><![CDATA[$F{Tipo_Acesso}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="755" y="0" width="33" height="20" uuid="43e24014-4d21-4a0b-a2f8-9bb824889c05"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="655" y="0" width="100" height="20" uuid="5240c8ae-201e-4ce1-bddc-7deadbaf7878"/>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>
